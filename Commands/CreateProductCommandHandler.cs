@@ -8,12 +8,9 @@ namespace OrganizationCrudWithMediatr.Commands;
 
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,ProductModel>
 {
-    private readonly IMediator _mediator;
     private readonly OrderDbContext _orderDbContext;
-
-    public CreateProductCommandHandler(IMediator mediator, OrderDbContext orderDbContext)
+    public CreateProductCommandHandler( OrderDbContext orderDbContext)
     {
-        _mediator = mediator;
         _orderDbContext = orderDbContext;
     }
 
