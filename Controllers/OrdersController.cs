@@ -3,16 +3,16 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OrganizationCrudWithMediatr.Commands;
 using OrganizationCrudWithMediatr.Models;
+using OrganizationCrudWithMediatr.Queries;
 
 namespace OrganizationCrudWithMediatr.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class OrderController : ControllerBase
+public class OrdersController : ControllerBase
 {
     private readonly IMediator _mediator;
-
-    public OrderController(IMediator mediator)
+    public OrdersController(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -35,6 +35,8 @@ public class OrderController : ControllerBase
     [HttpGet]
     public async ValueTask<IActionResult> GetOrders()
     {
-        
+        var query = new GetOrdersQuery();
+        var orders = await _mediator.Send<IEnumerable<ProductModel>>(query);
+        return Ok(orders);
     }
 }

@@ -1,6 +1,9 @@
-﻿namespace OrganizationCrudWithMediatr.Queries;
+﻿using MediatR;
+using OrganizationCrudWithMediatr.Models;
 
-public class GetOrdersQuery
+namespace OrganizationCrudWithMediatr.Queries;
+
+public class GetOrdersQuery : IRequest<IEnumerable<ProductModel>>
 {
     
 }
