@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using OrganizationCrudWithMediatr.DbContext;
 using OrganizationCrudWithMediatr.Entities;
+using OrganizationCrudWithMediatr.Mappers;
 using OrganizationCrudWithMediatr.Models;
 
 namespace OrganizationCrudWithMediatr.Commands;
@@ -26,5 +27,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         };
         await _orderDbContext.Products.AddAsync(product);
         await _orderDbContext.SaveChangesAsync();
+        return product.ToModel();
     }
 }
