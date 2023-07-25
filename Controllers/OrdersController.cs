@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OrganizationCrudWithMediatr.Commands;
+using OrganizationCrudWithMediatr.Exception;
 using OrganizationCrudWithMediatr.Models;
 using OrganizationCrudWithMediatr.Queries;
 
@@ -38,5 +39,19 @@ public class OrdersController : ControllerBase
         var query = new GetOrdersQuery();
         var orders = await _mediator.Send<IEnumerable<ProductModel>>(query);
         return Ok(orders);
+    }
+
+    [HttpDelete]
+    public async ValueTask<IActionResult> Delete([FromBody] DeleteProductCommand product)
+    {
+        try
+        {
+            await _mediator.Send(product);
+            return Ok();
+        }
+        catch (ProductNotFoundException e)
+        {
+            return BadRequest("Product not found");
+        }
     }
 }
